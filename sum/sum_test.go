@@ -26,7 +26,8 @@ func TestAll(t *testing.T) {
 }
 
 func TestAllTails(t *testing.T) {
-	t.Run("with two slices of numbers", func(t *testing.T) {
+
+	t.Run("make the sums of tails of", func(t *testing.T) {
 		got := AllTails([]int{1, 2}, []int{0, 9})
 		want := []int{2, 9}
 
@@ -35,7 +36,7 @@ func TestAllTails(t *testing.T) {
 		}
 	})
 
-	t.Run("with an empty slice", func(t *testing.T) {
+	t.Run("safely sum empty slices", func(t *testing.T) {
 		got := AllTails([]int{}, []int{3, 4, 5})
 		want := []int{0, 9}
 
