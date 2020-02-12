@@ -9,12 +9,26 @@ func Sum(numbers []int) int {
 	return sum
 }
 
-// SumAll sums all slices provided and sums their values
-func SumAll(numbersToSum ...[]int) []int {
+// All sums all slices provided and sums their values
+func All(numbersToSum ...[]int) []int {
 	var sums []int
 	for _, numbers := range numbersToSum {
 		sums = append(sums, Sum(numbers))
 	}
 
+	return sums
+}
+
+// AllTails sums everything following the head of a collection of slices
+func AllTails(numbersToSum ...[]int) []int {
+	var sums []int
+	for _, numbers := range numbersToSum {
+		if len(numbers) == 0 {
+			sums = append(sums, 0)
+		} else {
+			tail := numbers[1:]
+			sums = append(sums, Sum(tail))
+		}
+	}
 	return sums
 }
