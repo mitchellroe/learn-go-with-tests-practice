@@ -4,6 +4,11 @@ import (
 	"math"
 )
 
+// Shape is a interface which can be implemented by our Rectangle or Circle
+type Shape interface {
+	Area() float64
+}
+
 // Rectangle defines a rectangle
 type Rectangle struct {
 	Width  float64
