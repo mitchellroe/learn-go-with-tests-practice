@@ -25,13 +25,14 @@ func TestArea(t *testing.T) {
 		// And here's a list of the ad-hoc structs that go in our slice.
 		{shape: Rectangle{Width: 12, Height: 6}, want: 72.0},
 		{shape: Circle{Radius: 10}, want: 314.1592653589793},
-		{shape: Triangle{Base: 12, Height: 6}, want: 36.0},
+		// {shape: Triangle{Base: 12, Height: 6}, want: 36.0},
+		{shape: Triangle{Base: 12, Height: 6}, want: 10.0},
 	}
 
 	for _, tt := range areaTests {
 		got := tt.shape.Area()
 		if got != tt.want {
-			t.Errorf("got %g want %g", got, tt.want)
+			t.Errorf("%#v got %.2f want %.2f", tt, got, tt.want)
 		}
 	}
 
