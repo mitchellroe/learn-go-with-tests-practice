@@ -23,3 +23,8 @@ func (d Dictionary) Search(word string) (string, error) {
 func (d Dictionary) Add(word, definition string) {
 	d[word] = definition
 }
+
+// Remove and entry from the dictionary
+func (d Dictionary) Remove(word string) {
+	delete(d, word)
+}
