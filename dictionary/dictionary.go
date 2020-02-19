@@ -1,19 +1,24 @@
 package dictionary
 
-import (
-	"errors"
-)
+import ()
 
 // Dictionary stores a map of terms and their definitions
 type Dictionary map[string]string
 
-var (
+const (
 	// ErrNotFound is thrown when we cannot find the definition
-	ErrNotFound = errors.New("could not find the word you were looking for")
+	ErrNotFound = DictionaryErr("could not find the word you were looking for")
 
 	// ErrWordExists is thrown when attempting to add a word that's already defined
-	ErrWordExists = errors.New("cannot add word because it already exists")
+	ErrWordExists = DictionaryErr("cannot add word because it already exists")
 )
+
+// DictionaryErr is thrown in various situations
+type DictionaryErr string
+
+func (e DictionaryErr) Error() string {
+	return string(e)
+}
 
 // Search through our dictionary for a term
 func (d Dictionary) Search(word string) (string, error) {
@@ -40,7 +45,7 @@ func (d Dictionary) Add(word, definition string) error {
 	return nil
 }
 
-// Remove and entry from the dictionary
+// Remove an entry from the dictionary
 func (d Dictionary) Remove(word string) {
 	delete(d, word)
 }
