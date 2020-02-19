@@ -10,6 +10,9 @@ type Dictionary map[string]string
 // ErrNotFound is thrown when we cannot find the definition
 var ErrNotFound = errors.New("could not find the word you were looking for")
 
+// ErrDuplicate is thrown when attempting to add a word that's already defined
+var ErrDuplicate = errors.New("word already has a definition")
+
 // Search through our dictionary for a term
 func (d Dictionary) Search(word string) (string, error) {
 	definition, found := d[word]
@@ -20,8 +23,12 @@ func (d Dictionary) Search(word string) (string, error) {
 }
 
 // Add adds a definition to the dictionary
-func (d Dictionary) Add(word, definition string) {
+func (d Dictionary) Add(word, definition string) error {
+	if d[word] != "" {
+		return ErrDuplicate
+	}
 	d[word] = definition
+	return nil
 }
 
 // Remove and entry from the dictionary
