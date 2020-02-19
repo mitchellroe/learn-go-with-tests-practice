@@ -27,7 +27,7 @@ func TestAdd(t *testing.T) {
 	got, err := dictionary.Search("test")
 
 	if err != nil {
-		t.Fatalf("should find added word:", err)
+		t.Fatal("should find added word:", err)
 	}
 	assertString(t, got, want)
 }
