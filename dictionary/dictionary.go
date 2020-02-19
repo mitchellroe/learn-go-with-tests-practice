@@ -25,7 +25,7 @@ func (d Dictionary) Search(word string) (string, error) {
 // Add adds a definition to the dictionary
 func (d Dictionary) Add(word, definition string) error {
 	if d[word] != "" {
-		return ErrDuplicate
+		return ErrWordExists
 	}
 	d[word] = definition
 	return nil

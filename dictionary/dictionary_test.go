@@ -64,6 +64,12 @@ func assertError(t *testing.T, got, want error) {
 	if got != want {
 		t.Errorf("got error %q want %q", got, want)
 	}
+	if got == nil {
+		if want == nil {
+			return
+		}
+		t.Fatal("expected to get an error.")
+	}
 }
 
 func assertDefinition(t *testing.T, dictionary Dictionary, word, definition string) {
