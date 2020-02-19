@@ -27,6 +27,13 @@ func TestAdd(t *testing.T) {
 	assertDefinition(t, dictionary, word, definition)
 }
 
+func TestRemove(t *testing.T) {
+	dictionary := Dictionary{"test": "this is just a test"}
+	dictionary.Remove("test")
+	_, err := dictionary.Search("test")
+	assertError(t, err, ErrNotFound)
+}
+
 func assertString(t *testing.T, got, want string) {
 	t.Helper()
 	if got != want {
