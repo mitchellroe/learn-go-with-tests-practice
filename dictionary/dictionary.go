@@ -5,16 +5,20 @@ import ()
 // Dictionary stores a map of terms and their definitions
 type Dictionary map[string]string
 
+// DictionaryErr is thrown in various situations
+type DictionaryErr string
+
 const (
 	// ErrNotFound is thrown when we cannot find the definition
 	ErrNotFound = DictionaryErr("could not find the word you were looking for")
 
 	// ErrWordExists is thrown when attempting to add a word that's already defined
 	ErrWordExists = DictionaryErr("cannot add word because it already exists")
-)
 
-// DictionaryErr is thrown in various situations
-type DictionaryErr string
+	// ErrWordDoesNotExist is thrown when trying to update the definition to a
+	// word that is not yet defined.
+	ErrWordDoesNotExist = DictionaryErr("cannot update word because it is not yet defined")
+)
 
 func (e DictionaryErr) Error() string {
 	return string(e)
@@ -45,7 +49,19 @@ func (d Dictionary) Add(word, definition string) error {
 	return nil
 }
 
-// Remove an entry from the dictionary
-func (d Dictionary) Remove(word string) {
-	delete(d, word)
+// Update changes the definition of a word in our dictionary
+func (d Dictionary) Update(word, definition string) error {
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrNotFound:
+		return ErrWordDoesNotExist
+	case nil:
+		d[word] = definition
+	default:
+		return err
+	}
+
+	return nil
+
 }
