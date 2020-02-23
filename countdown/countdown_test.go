@@ -5,6 +5,14 @@ import (
 	"testing"
 )
 
+type SpySleeper struct {
+	Calls int
+}
+
+func (s *SpySleeper) Sleep() {
+	s.Calls++
+}
+
 func TestCountdown(t *testing.T) {
 	buffer := &bytes.Buffer{}
 	spySleeper := &SpySleeper{}
@@ -18,16 +26,7 @@ func TestCountdown(t *testing.T) {
 		t.Errorf("got %q want %q", got, want)
 	}
 
-	numberOfCalls := 3
-	if spySleeper.Calls != numberOfCalls {
-		t.Errorf("not enough calls to sleeper, want %d got %d", numberOfCalls, spySleeper.Calls)
+	if spySleeper.Calls != 3 {
+		t.Errorf("not enough calls to sleeper, want 3 got %d", spySleeper.Calls)
 	}
-}
-
-type SpySleeper struct {
-	Calls int
-}
-
-func (s *SpySleeper) Sleep() {
-	s.Calls++
 }
