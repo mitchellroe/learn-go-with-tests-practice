@@ -20,27 +20,14 @@ func (d *DefaultSleeper) Sleep() {
 	time.Sleep(1 * time.Second)
 }
 
-func Countdown(out io.Writer, sleeper Sleeper) {
+func Countdown(writer io.Writer, sleeper Sleeper) {
 	for i := countdownStart; i > 0; i-- {
 		sleeper.Sleep()
+		fmt.Fprintln(writer, i)
 	}
-
-	for i := countdownStart; i > 0; i-- {
-		fmt.Fprintln(out, i)
-	}
-
 	sleeper.Sleep()
-	fmt.Fprint(out, finalWord)
+	fmt.Fprint(writer, finalWord)
 }
-
-// func Countdown(writer io.Writer, sleeper Sleeper) {
-// 	for i := countdownStart; i > 0; i-- {
-// 		sleeper.Sleep()
-// 		fmt.Fprintln(writer, i)
-// 	}
-// 	sleeper.Sleep()
-// 	fmt.Fprint(writer, finalWord)
-// }
 
 func main() {
 	sleeper := &DefaultSleeper{}
