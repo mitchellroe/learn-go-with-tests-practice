@@ -4,15 +4,8 @@ import (
 	"bytes"
 	"reflect"
 	"testing"
+	"time"
 )
-
-type SpySleeper struct {
-	Calls int
-}
-
-func (s *SpySleeper) Sleep() {
-	s.Calls++
-}
 
 // CountdownOperationsSpy implements both io.Writer and countdown.SpySleeper.
 type CountdownOperationsSpy struct {
@@ -30,6 +23,19 @@ func (c *CountdownOperationsSpy) Write(p []byte) (n int, err error) {
 
 const write = "write"
 const sleep = "sleep"
+
+type ConfigurableSleeper struct {
+	duration time.Duration
+	sleep    func(time.Duration)
+}
+
+type SpyTime struct {
+	durationSlept time.Duration
+}
+
+func (s *SpyTime) Sleep(duration time.Duration) {
+	s.durationSlept = duration
+}
 
 func TestCountdown(t *testing.T) {
 
