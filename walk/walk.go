@@ -9,8 +9,11 @@ import "reflect"
 func walk(x interface{}, fn func(input string)) {
 	// So get the value of the interface we were passed.
 	val := reflect.ValueOf(x)
-	// Then store the first field in that interface into variable "field"
-	field := val.Field(0)
-	// Then pass that field to the function we were passed.
-	fn(field.String())
+
+	// Then loop through each of the fields that are in it
+	for i := 0; i < val.NumField(); i++ {
+		// Grab the i-th
+		field := val.Field(i)
+		fn(field.String())
+	}
 }
